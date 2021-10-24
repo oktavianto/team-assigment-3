@@ -5,7 +5,7 @@
         <div class="flex justify-end">
             <div class="bg-white min-h-screen w-1/2 flex justify-center items-center">
                 <!-- Jika Belum Mempunyai Hasil -->
-                <div class="w-3/4" v-if="!hasil">
+                <div class="w-3/4" v-if="!result">
                     <div>
                         <span class="text-sm text-gray-900">Tugas Kelompok 3 - Team 4</span>
                         <h1 class="text-2xl font-bold">Perhitungan nilai</h1>
@@ -51,7 +51,7 @@
                         <span class="font-bold">Grade: </span><span>{{ grade }}</span>
                     </div>
                     <div class="mt-2">
-                        <button class="mt-4 mb-3 w-full bg-gray-500 hover:bg-gray-400 text-white py-2 rounded-md transition duration-100" @click="hasil=null;quis=null;absensi=null;tugas=null;praktek=null;uas=null;">Kembali</button>
+                        <button class="mt-4 mb-3 w-full bg-gray-500 hover:bg-gray-400 text-white py-2 rounded-md transition duration-100" @click="result=false;hasil=0;quis=0;absensi=0;tugas=0;praktek=0;uas=0;">Kembali</button>
                     </div>
                 </div>
             </div>
@@ -59,14 +59,20 @@
     </div>
 </template>
 <script>
+    import { Head, Link } from '@inertiajs/inertia-vue3';
     export default {
+        components: {
+            Head,
+            Link,
+        },
         data() {
             return {  
-                quis: null,
-                tugas: null,
-                absensi: null,
-                praktek: null,
-                uas: null,
+                quis: 0,
+                tugas: 0,
+                absensi: 0,
+                praktek: 0,
+                uas: 0,
+                result: false,
                 hasil: null,
                 grade: null
             }
@@ -74,20 +80,23 @@
 
         methods: {
             hitung() {
-                if (this.quis && this.tugas && this.absensi && this.praktek && this.uas) {
-                    let jumlah = this.quis+this.tugas+this.absensi+this.praktek+this.uas;
-                    this.hasil = jumlah/5;
-                    if (this.hasil <= 65) {
-                        this.grade = "D";
-                    } else if (this.hasil <= 75) {
-                        this.grade = "C";
-                    } else if (this.hasil <= 85) {
-                        this.grade = "B";
-                    } else if (this.hasil <= 100) {
-                        this.grade = "A";
-                    }
-                } else {
-                    alert('Harap mengisi seluruh data dengan minimal 0 dan maksimal 100.');
+                let jumlah = this.quis+this.tugas+this.absensi+this.praktek+this.uas;
+                this.hasil = jumlah/5;
+                if (this.hasil < 0) {
+                    return alert('Nilai tidak bisa kurang dari 0');
+                }
+                if (this.hasil > 100) {
+                    return alert('Nilai tidak bisa lebih dari 100');
+                }
+                this.result = true;
+                if (this.hasil <= 65) {
+                    this.grade = "D";
+                } else if (this.hasil <= 75) {
+                    this.grade = "C";
+                } else if (this.hasil <= 85) {
+                    this.grade = "B";
+                } else if (this.hasil <= 100) {
+                    this.grade = "A";
                 }
             }
         }

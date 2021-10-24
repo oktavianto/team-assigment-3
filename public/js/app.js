@@ -21141,35 +21141,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
+    Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link
+  },
   data: function data() {
     return {
-      quis: null,
-      tugas: null,
-      absensi: null,
-      praktek: null,
-      uas: null,
+      quis: 0,
+      tugas: 0,
+      absensi: 0,
+      praktek: 0,
+      uas: 0,
+      result: false,
       hasil: null,
       grade: null
     };
   },
   methods: {
     hitung: function hitung() {
-      if (this.quis && this.tugas && this.absensi && this.praktek && this.uas) {
-        var jumlah = this.quis + this.tugas + this.absensi + this.praktek + this.uas;
-        this.hasil = jumlah / 5;
+      var jumlah = this.quis + this.tugas + this.absensi + this.praktek + this.uas;
+      this.hasil = jumlah / 5;
 
-        if (this.hasil <= 65) {
-          this.grade = "D";
-        } else if (this.hasil <= 75) {
-          this.grade = "C";
-        } else if (this.hasil <= 85) {
-          this.grade = "B";
-        } else if (this.hasil <= 100) {
-          this.grade = "A";
-        }
-      } else {
-        alert('Harap mengisi seluruh data dengan minimal 0 dan maksimal 100.');
+      if (this.hasil < 0) {
+        return alert('Nilai tidak bisa kurang dari 0');
+      }
+
+      if (this.hasil > 100) {
+        return alert('Nilai tidak bisa lebih dari 100');
+      }
+
+      this.result = true;
+
+      if (this.hasil <= 65) {
+        this.grade = "D";
+      } else if (this.hasil <= 75) {
+        this.grade = "C";
+      } else if (this.hasil <= 85) {
+        this.grade = "B";
+      } else if (this.hasil <= 100) {
+        this.grade = "A";
       }
     }
   }
@@ -25763,7 +25776,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Head, {
     title: "Perhitungan Nilai"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Jika Belum Mempunyai Hasil "), !$data.hasil ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Jika Belum Mempunyai Hasil "), !$data.result ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "px-4 w-full border-2 py-2 rounded-md text-sm outline-none",
     type: "number",
     min: "0",
@@ -25849,12 +25862,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "mt-4 mb-3 w-full bg-gray-500 hover:bg-gray-400 text-white py-2 rounded-md transition duration-100",
     onClick: _cache[6] || (_cache[6] = function ($event) {
-      $data.hasil = null;
-      $data.quis = null;
-      $data.absensi = null;
-      $data.tugas = null;
-      $data.praktek = null;
-      $data.uas = null;
+      $data.result = false;
+      $data.hasil = 0;
+      $data.quis = 0;
+      $data.absensi = 0;
+      $data.tugas = 0;
+      $data.praktek = 0;
+      $data.uas = 0;
     })
   }, "Kembali")])])], 2112
   /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
